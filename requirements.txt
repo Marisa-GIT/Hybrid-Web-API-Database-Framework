@@ -1,0 +1,8 @@
+selenium
+pytest
+requests
+mysql-connector-python
+python-dotenv
+webdriver-manager
+allure-pytest
+pytest-html
