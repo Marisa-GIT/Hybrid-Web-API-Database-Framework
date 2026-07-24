@@ -3,6 +3,7 @@ import pytest
 from config.settings import BASE_URL, BROWSER
 from core.driver_factory import DriverFactory
 from utils.test_data_manager import TestDataManager
+from api.client import UserAPIClient
 from pages.login_page import LoginPage
 from datetime import datetime
 
@@ -33,7 +34,6 @@ def login(driver):
     return _login
 
 @pytest.hookimpl(hookwrapper=True)
-
 def pytest_runtest_makereport(
     item,
     call):
@@ -55,3 +55,9 @@ def pytest_runtest_makereport(
         driver.save_screenshot(
         f"screenshots/{item.name}_{timestamp}.png"
         )
+
+@pytest.fixture
+def user_api_client():
+    client = UserAPIClient()
+    yield client
+    client.close()

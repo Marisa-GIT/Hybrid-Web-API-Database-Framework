@@ -1,6 +1,6 @@
 BASE_URL = "https://www.saucedemo.com"
 
-API_URL = "https://api.example.com"
+API_BASE_URL = "https://jsonplaceholder.typicode.com"
 
 DB_HOST = "localhost"
 
