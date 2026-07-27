@@ -3,7 +3,7 @@ import pytest
 from config.settings import BASE_URL, BROWSER
 from core.driver_factory import DriverFactory
 from utils.test_data_manager import TestDataManager
-from api.client import UserAPIClient
+from api.services.user_service import UserAPIClient
 from pages.login_page import LoginPage
 from datetime import datetime
 
