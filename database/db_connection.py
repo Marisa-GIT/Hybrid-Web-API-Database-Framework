@@ -11,7 +11,6 @@ from config.environment import (
 class DatabaseConnection:
 
     def __init__(self):
-        def __init__(self):
             self.host = DB_HOST
             self.port = DB_PORT
             self.database = DB_NAME
