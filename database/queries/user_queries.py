@@ -12,7 +12,7 @@ WHERE id = %s;
 """
 
 USER_EXISTS = """
-SELECT COUNT(*)
-FROM users
-WHERE id = %s;
-"""
+SELECT COUNT(*) 
+AS count 
+FROM users 
+WHERE id = %s;"""

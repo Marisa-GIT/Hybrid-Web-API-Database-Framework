@@ -7,16 +7,30 @@ class DatabaseValidator:
 
     @staticmethod
     def assert_not_empty_list(data):
-        assert data is not None
-        assert isinstance(data, list), f"Se esperaba una lista de la BD, pero se obtuvo {type(data).__name__}."
-        assert len(data) > 0, "La consulta a la base de datos no devolvió ningún registro (lista vacía)."
+        assert data is not None, "La consulta devolvió None."
+        assert isinstance(data, list), (
+            f"Se esperaba una lista de la BD, pero se obtuvo {type(data).__name__}."
+        )
+        assert len(data) > 0, (
+            "La consulta a la base de datos no devolvió ningún registro."
+        )
+
         logger.info("Database query returned %d records.", len(data))
 
     @staticmethod
     def assert_user_exists(user):
-        assert user is not None, "El usuario consultado no existe en la base de datos (se obtuvo None)."
-        assert isinstance(user, dict), f"Se esperaba un diccionario de usuario, pero se recibió {type(user).__name__}."
-        logger.info(f"Validación exitosa: El usuario con ID {user.get('id')} existe en la base de datos.")
+        assert user is not None, (
+            "El usuario consultado no existe en la base de datos."
+        )
+
+        assert isinstance(user, dict), (
+            f"Se esperaba un diccionario, pero se obtuvo {type(user).__name__}."
+        )
+
+        logger.info(
+            "User with ID %s exists.",
+            user.get("id")
+        )
 
     @staticmethod
     def assert_user_schema(user, expected_schema=None):
@@ -36,12 +50,13 @@ class DatabaseValidator:
             
             
             if actual_value is not None:
-                assert isinstance(actual_value, expected_type.__name__), (
-                    f"Tipo de dato incorrecto en BD para el campo '{field}'. "
-                    f"Se esperaba {expected_type.__name__}, pero se obtuvo {type(actual_value).__name__} (Valor: {actual_value})"
+                assert isinstance(actual_value, expected_type), (
+                    f"Tipo incorrecto para '{field}'. "
+                    f"Se esperaba {expected_type.__name__}, "
+                    f"pero se obtuvo {type(actual_value).__name__}."
                 )
 
-        logger.info("Validación exitosa: El esquema del usuario en BD es correcto.")
+        logger.info("User schema validation passed.")
 
     @staticmethod
     def assert_user_id(user, expected_id):
@@ -52,4 +67,4 @@ class DatabaseValidator:
             f"El ID del usuario en BD no coincide. "
             f"Se esperaba ID: {expected_id}, pero se obtuvo ID: {actual_id}."
         )
-        logger.info(f"Validación exitosa: El ID del usuario ({actual_id}) coincide con el esperado.")
+        logger.info("User ID validation passed.")
