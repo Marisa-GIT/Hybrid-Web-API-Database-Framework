@@ -22,7 +22,7 @@ class UserRepository(BaseRepository):
             return users
         except Exception as e:
             logger.error(f"Error al ejecutar GET_ALL_USERS: {e}")
-            raise e
+            raise
 
 
     def get_user_by_id(self, user_id):
