@@ -8,8 +8,8 @@ DB_PORT = 3306
 
 DB_NAME = "hybrid_framework_db"
 
-DB_USER = "root"
+DB_USER = "qa_user"
 
-DB_PASSWORD = "password"
+DB_PASSWORD = "api_validator_test"
 
 
