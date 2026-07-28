@@ -1,11 +1,22 @@
 from database.validators import DatabaseValidator
+import pytest
 
-
+VALID_USER_ID = 1
+INVALID_USER_ID = 9999
 class TestUserRepository:
-    """Test suite for UserRepository."""
+    @pytest.mark.parametrize(
+        "user_id, expected",
+        [
+            (VALID_USER_ID, True),
+            (INVALID_USER_ID, False),
+        ],
+        ids=["user_exists", "user_does_not_exist"]
+    )
+    def test_user_exists(self, user_repository, user_id, expected):
+        """Verify that user_exists returns correct status for existing and non-existing IDs."""
+        assert user_repository.user_exists(user_id) is expected
 
     def test_get_all_users(self, user_repository):
-        """Verify that all users can be retrieved."""
 
         users = user_repository.get_all_users()
 
@@ -15,42 +26,21 @@ class TestUserRepository:
 
     def test_get_user_by_id(self, user_repository):
 
-            """Verify retrieving an existing user by ID."""
+        user = user_repository.get_user_by_id(VALID_USER_ID)
 
 
-            user_id = 1
+        DatabaseValidator.assert_user_exists(user)
 
+        DatabaseValidator.assert_user_id(user, VALID_USER_ID)
 
-            user = user_repository.get_user_by_id(user_id)
-
-
-            DatabaseValidator.assert_user_exists(user)
-
-            DatabaseValidator.assert_user_id(user, user_id)
-
-            DatabaseValidator.assert_user_schema(user)
+        DatabaseValidator.assert_user_schema(user)
 
     def test_get_user_not_found(self, user_repository):
 
-        """Verify querying a non-existent user."""
+        user = user_repository.get_user_by_id(INVALID_USER_ID)
 
 
-        user = user_repository.get_user_by_id(9999)
+        assert user is None, "Expected no user for a non-existent ID."
 
 
-        assert user is None
 
-    def test_user_exists(self, user_repository):
-
-            """Verify that an existing user is found."""
-
-
-            assert user_repository.user_exists(1) is True
-
-
-    def test_user_does_not_exist(self, user_repository):
-
-        """Verify that a non-existent user is not found."""
-
-
-        assert user_repository.user_exists(9999) is False
