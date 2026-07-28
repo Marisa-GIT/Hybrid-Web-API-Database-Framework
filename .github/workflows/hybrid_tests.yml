@@ -11,18 +11,31 @@ on:
 
 jobs:
   selenium-tests:
-
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: api_validator_2026
+          MYSQL_DATABASE: hybrid_framework_db        
+          MYSQL_USER: qa_user
+          MYSQL_PASSWORD: api_validator_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -37,26 +50,32 @@ jobs:
         env:
           CI: true
           BROWSER: edge
+         
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USER: qa_user
+          DB_PASSWORD: api_validator_test
+          DB_NAME: hybrid_framework_db                  
         run: |
           pytest --reruns 2
+
       - name: Upload screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: selenium-screenshots
           path: screenshots/
+
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
-
         with:
           name: framework-logs
           path: logs/
-      
+
       - name: Upload Allure Results
         if: always()
         uses: actions/upload-artifact@v4
-
         with:
           name: allure-results
           path: allure-results/
