@@ -16,12 +16,12 @@ class UserRepository(BaseRepository):
             
             users = cursor.fetchall()
 
-            logger.info(f"Se obtuvieron {len(users)} usuarios de la base de datos.")
+            logger.info(f"{len(users)} users were obtained from the database.")
 
             
             return users
         except Exception as e:
-            logger.error(f"Error al ejecutar GET_ALL_USERS: {e}")
+            logger.error(f"Error executing GET_ALL_USERS: {e}")
             raise
 
 
@@ -34,13 +34,13 @@ class UserRepository(BaseRepository):
             user = cursor.fetchone()  
             
             if user:
-                self.logger.info(f"Usuario con ID {user_id} encontrado en BD.")
+                self.logger.info(f"User with ID {user_id} found in DB.")
             else:
-                self.logger.warning(f"No se encontró usuario con ID {user_id} en BD.")
+                self.logger.warning(f"User with ID {user_id} not found in DB.")
                 
             return user
         except Exception as e:
-            logger.error(f"Error al ejecutar GET_USER_BY_ID para ID {user_id}: {e}")
+            logger.error(f"Error executing GET_USER_BY_ID for ID {user_id}: {e}")
             raise
      
 
@@ -52,11 +52,11 @@ class UserRepository(BaseRepository):
             result = cursor.fetchone()
             exists = result["count"] > 0 if result else False
 
-            logger.info(f"¿Existe el usuario con ID {user_id}?: {exists}")
+            logger.info(f"¿Does the user with ID exist {user_id}?: {exists}")
             return exists
 
         except Exception as e:
-            logger.error(f"Error al ejecutar EXISTS_USER_BY_ID para ID {user_id}: {e}")
+            logger.error(f"Error executing EXISTS_USER_BY_ID for ID {user_id}: {e}")
             raise
 
        
