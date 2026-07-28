@@ -54,8 +54,10 @@ jobs:
         uses: browser-actions/setup-edge@v1
 
       - name: Initialize Database and Tables
+        env:
+          MYSQL_PWD: api_validator_2026
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u root -api_validator_2026 < database/scripts/001_create_database.sql
+          mysql -h 127.0.0.1 -P 3306 -u root < database/scripts/001_create_database.sql
           mysql -h 127.0.0.1 -P 3306 -u qa_user -api_validator_test hybrid_framework_db < database/scripts/002_create_tables.sql
           mysql -h 127.0.0.1 -P 3306 -u qa_user -api_validator_test hybrid_framework_db < database/scripts/003_seed_data.sql
 
