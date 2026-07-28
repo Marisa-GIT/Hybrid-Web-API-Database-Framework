@@ -41,6 +41,7 @@ class TestUserRepository:
 
 
         assert user is None, "Expected no user for a non-existent ID."
+        
 
 
 
