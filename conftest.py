@@ -6,7 +6,9 @@ from utils.test_data_manager import TestDataManager
 from api.services.user_service import UserAPIClient
 from pages.login_page import LoginPage
 from datetime import datetime
+import pytest
 
+from database.repositories.user_repository import UserRepository
 
 @pytest.fixture
 def driver():
@@ -61,3 +63,11 @@ def user_api_client():
     client = UserAPIClient()
     yield client
     client.close()
+
+@pytest.fixture
+def user_repository():
+    repository = UserRepository()
+
+    yield repository
+
+    repository.close()

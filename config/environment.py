@@ -4,8 +4,12 @@ API_BASE_URL = "https://jsonplaceholder.typicode.com"
 
 DB_HOST = "localhost"
 
-DB_NAME = "automation"
+DB_PORT = 3306
 
-DB_USER = "root"
+DB_NAME = "hybrid_framework_db"
 
-DB_PASSWORD = "password"
+DB_USER = "qa_user"
+
+DB_PASSWORD = "api_validator_test"
+
+
