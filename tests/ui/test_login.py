@@ -38,3 +38,4 @@ def test_login_multiple_users(
     
     inventory = InventoryPage(driver)
     assert inventory.get_page_title() == "Products"
+    

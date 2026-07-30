@@ -1,4 +1,4 @@
-from api.client import APIClient
+from api.clients.api_client import APIClient
 from api.endpoints import UserEndpoints
 
 class UserAPIClient(APIClient):

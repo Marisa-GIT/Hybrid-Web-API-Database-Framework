@@ -1,0 +1,95 @@
+name: QA Hybrid_Framework CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: api_validator_2026
+          MYSQL_DATABASE: hybrid_framework_db
+          MYSQL_USER: qa_user
+          MYSQL_PASSWORD: api_validator_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest-rerunfailures allure-pytest
+
+      - name: Install MySQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-mysql-client
+
+      - name: Install Microsoft Edge
+        uses: browser-actions/setup-edge@v1
+
+      - name: Initialize Database and Tables
+        env:
+          MYSQL_PWD: api_validator_2026
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root < database/scripts/001_create_database.sql
+          mysql -h 127.0.0.1 -P 3306 -u qa_user -papi_validator_test hybrid_framework_db < database/scripts/002_create_tables.sql
+          mysql -h 127.0.0.1 -P 3306 -u qa_user -papi_validator_test hybrid_framework_db < database/scripts/003_seed_data.sql
+
+      - name: Run tests
+        env:
+          CI: true
+          BROWSER: edge
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USER: qa_user
+          DB_PASSWORD: api_validator_test
+          DB_NAME: hybrid_framework_db
+        run: |
+          pytest --reruns 2 --alluredir=allure-results
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-screenshots
+          path: screenshots/
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: framework-logs
+          path: logs/
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/

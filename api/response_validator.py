@@ -1,15 +1,4 @@
-class UserSchemas:
-        USER_SCHEMA_KEYS = {
-            "id": int,
-            "name": str,
-            "username": str,
-            "email": str,
-            "address": dict,   
-            "phone": str,
-            "website": str,
-            "company": dict   
-        }
-        
+
 class ResponseValidator:
 
     @staticmethod
@@ -29,7 +18,7 @@ class ResponseValidator:
     def assert_user_schema(user_data):
         assert isinstance(user_data, dict), "The user object must be a dictionary."
         
-        from api.response_validator import UserSchemas
+        from api.schemas import UserSchemas
         
         for field, expected_type in UserSchemas.USER_SCHEMA_KEYS.items():
             
