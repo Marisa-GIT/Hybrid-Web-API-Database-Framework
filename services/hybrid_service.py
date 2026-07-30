@@ -19,3 +19,11 @@ class HybridService:
     def get_database_user(self, user_id):
         """Retrieve a user from the database."""
         return self.user_repository.get_user_by_id(user_id)
+
+    def validate_user_consistency(self, user_id):
+            """Retrieve the same user from the API and the database."""
+    
+            api_user = self.get_api_user(user_id)
+            db_user = self.get_database_user(user_id)
+    
+            return api_user, db_user
