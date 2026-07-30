@@ -4,6 +4,7 @@ from config.settings import BASE_URL, BROWSER
 from core.driver_factory import DriverFactory
 from utils.test_data_manager import TestDataManager
 from api.clients.user_api_client import UserAPIClient
+from services.hybrid_service import HybridService
 from pages.login_page import LoginPage
 from datetime import datetime
 
@@ -67,3 +68,11 @@ def user_repository():
     repository = UserRepository()
     yield repository
     repository.close()
+
+@pytest.fixture
+def hybrid_service(driver, user_api_client, user_repository):
+    return HybridService(
+        driver=driver,
+        user_api_client=user_api_client,
+        user_repository=user_repository
+    )
