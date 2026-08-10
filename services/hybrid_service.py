@@ -66,3 +66,18 @@ class HybridService:
         inventory_page.add_product_to_cart(product_name)
 
         return inventory_page.open_cart()
+
+    def validate_cart_product(self, cart_page, product):
+        """
+        Validate the product and its details in the shopping cart.
+        """
+
+        HybridValidator.assert_cart_product(
+            cart_page,
+            product["name"]
+        )
+
+        HybridValidator.assert_cart_product_details(
+            cart_page,
+            product
+        )

@@ -1,3 +1,5 @@
+from utils.test_data_manager import TestDataManager
+
 
 class TestHybridUserFlow:
 
@@ -11,9 +13,11 @@ class TestHybridUserFlow:
 
     def test_user_can_login(self, hybrid_service):
 
+        user = TestDataManager.get_user("standard_user")
+
         inventory_page = hybrid_service.login_user(
-            "standard_user",
-            "secret_sauce"
+            user["username"],
+            user["password"]
         )
 
         assert inventory_page is not None
@@ -40,9 +44,11 @@ class TestHybridUserFlow:
 
     def test_login_and_validate_user(self, hybrid_service):
 
+        user = TestDataManager.get_user("standard_user")
+
         result = hybrid_service.login_and_validate_user(
-            username="standard_user",
-            password="secret_sauce",
+            username=user["username"],
+            password=user["password"],
             user_id=1
         )
 
@@ -50,13 +56,15 @@ class TestHybridUserFlow:
     
     def test_add_product_to_cart(self, hybrid_service):
 
-        product_name = "Sauce Labs Backpack"
+        product = TestDataManager.get_product("backpack")
+        user = TestDataManager.get_user("standard_user")
 
         cart_page = hybrid_service.add_product_to_cart(
-            username="standard_user",
-            password="secret_sauce",
-            product_name=product_name
+            username=user["username"],
+            password=user["password"],
+            product_name=product["name"]
         )
-
-        assert cart_page.has_product(product_name)
-        assert cart_page.get_product_count() == 1
+        hybrid_service.validate_cart_product(
+            cart_page,
+            product
+        )
