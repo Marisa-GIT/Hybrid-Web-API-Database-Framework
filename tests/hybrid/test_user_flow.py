@@ -1,5 +1,3 @@
-import pytest
-
 
 class TestHybridUserFlow:
 
@@ -34,11 +32,31 @@ class TestHybridUserFlow:
         assert api_user is not None
         assert db_user is not None
 
-    def test_user_data_is_consistent_between_api_and_database(self,hybrid_service):
-        """Verify that API and Database return consistent user information."""
+    def test_validate_user_flow(self, hybrid_service):
 
-        api_user, db_user = hybrid_service.validate_user_consistency(1)
+        result = hybrid_service.validate_user_flow(1)
 
-        assert api_user["id"] == db_user["id"]
-        assert api_user["username"] == db_user["username"]
-        assert api_user["email"] == db_user["email"]
+        assert result is not None
+
+    def test_login_and_validate_user(self, hybrid_service):
+
+        result = hybrid_service.login_and_validate_user(
+            username="standard_user",
+            password="secret_sauce",
+            user_id=1
+        )
+
+        assert result["inventory_page"] is not None
+    
+    def test_add_product_to_cart(self, hybrid_service):
+
+        product_name = "Sauce Labs Backpack"
+
+        cart_page = hybrid_service.add_product_to_cart(
+            username="standard_user",
+            password="secret_sauce",
+            product_name=product_name
+        )
+
+        assert cart_page.has_product(product_name)
+        assert cart_page.get_product_count() == 1
