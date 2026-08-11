@@ -81,3 +81,79 @@ class HybridService:
             cart_page,
             product
         )
+
+    def complete_checkout(
+        self,
+        checkout_information_page,
+        first_name,
+        last_name,
+        postal_code
+    ):
+        """
+        Complete the checkout information and finish the purchase.
+        """
+
+        checkout_information_page.complete_information(
+            first_name,
+            last_name,
+            postal_code
+        )
+
+        overview_page = checkout_information_page.submit_information()
+
+        return overview_page.finish()
+
+    def purchase_product(
+        self,
+        username,
+        password,
+        product_name,
+        first_name,
+        last_name,
+        postal_code
+    ):
+        """
+        Login, add a product to the cart and complete the purchase.
+        """
+
+        cart_page = self.add_product_to_cart(
+            username=username,
+            password=password,
+            product_name=product_name
+        )
+
+        checkout_information_page = cart_page.checkout()
+
+        complete_page = self.complete_checkout(
+            checkout_information_page=checkout_information_page,
+            first_name=first_name,
+            last_name=last_name,
+            postal_code=postal_code
+        )
+
+        return complete_page
+
+    def checkout_product(
+        self,
+        username,
+        password,
+        product_name,
+        first_name,
+        last_name,
+        postal_code
+    ):
+        cart_page = self.add_product_to_cart(
+            username=username,
+            password=password,
+            product_name=product_name
+        )
+
+        checkout_information_page = cart_page.checkout()
+
+        checkout_information_page.complete_information(
+            first_name,
+            last_name,
+            postal_code
+        )
+
+        return checkout_information_page.submit_information()

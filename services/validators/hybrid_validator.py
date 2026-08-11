@@ -77,3 +77,43 @@ class HybridValidator:
             "Product '%s' name and price validated successfully.",
             product_name
         )
+
+    @staticmethod
+    def assert_checkout_totals(overview_page):
+        """
+        Validate subtotal, tax and total displayed in checkout overview.
+        """
+
+        product_prices = overview_page.get_product_prices()
+        subtotal = overview_page.get_item_total()
+        tax = overview_page.get_tax()
+        total = overview_page.get_total()
+
+        expected_subtotal = round(sum(product_prices), 2)
+
+        assert subtotal == expected_subtotal, (
+            f"The subtotal of the UI ({subtotal}) does not match "
+            f"the sum of its products ({expected_subtotal})."
+        )
+
+        expected_tax = round(subtotal * 0.08, 2)
+
+        assert tax == expected_tax, (
+            f"The tax calculated by the system ({tax}) "
+            f"is not the expected 8% ({expected_tax})."
+        )
+
+        expected_total = round(subtotal + tax, 2)
+
+        assert total == expected_total, (
+            f"The final total of the UI ({total}) does not equal "
+            f"subtotal + tax ({expected_total})."
+        )
+
+        logger.info(
+            "Checkout totals validated successfully. "
+            "Subtotal: %s, Tax: %s, Total: %s",
+            subtotal,
+            tax,
+            total
+        )

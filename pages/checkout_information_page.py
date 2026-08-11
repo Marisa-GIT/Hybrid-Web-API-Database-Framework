@@ -47,7 +47,7 @@ class CheckoutInformationPage(BasePage):
         )
         return errors[0].text if errors else None
     
-    def submit_information(self) -> None:
+    def submit_information(self) -> "CheckoutOverviewPage":
         self.logger.info("Submitting checkout information")
         self.click(CheckoutInformationLocators.CONTINUE_BUTTON)
         return CheckoutOverviewPage(self.driver)
