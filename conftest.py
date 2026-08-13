@@ -1,6 +1,7 @@
 import os
 import pytest
-from config.settings import BASE_URL, BROWSER
+from config.settings import BROWSER
+from config.environment import BASE_URL
 from core.driver_factory import DriverFactory
 from utils.test_data_manager import TestDataManager
 from api.clients.user_api_client import UserAPIClient
