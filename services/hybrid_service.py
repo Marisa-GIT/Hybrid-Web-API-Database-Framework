@@ -90,7 +90,7 @@ class HybridService:
         first_name,
         last_name,
         postal_code
-    ):
+        ):
         """
         Complete the checkout information and finish the purchase.
         """
@@ -113,7 +113,7 @@ class HybridService:
         first_name,
         last_name,
         postal_code
-    ):
+        ):
         """
         Login, add a product to the cart and complete the purchase.
         """
@@ -143,7 +143,7 @@ class HybridService:
         first_name,
         last_name,
         postal_code
-    ):
+        ):
         cart_page = self.add_product_to_cart(
             username=username,
             password=password,
@@ -159,3 +159,43 @@ class HybridService:
         )
 
         return checkout_information_page.submit_information()
+
+    def validate_inventory_flow(
+        self,
+        username,
+        password,
+        product
+        ):
+        """
+        Login and validate the inventory product flow.
+        """
+
+        inventory_page = self.login_user(
+            username,
+            password
+        )
+
+        HybridValidator.assert_inventory_loaded(
+            inventory_page
+        )
+
+        HybridValidator.assert_product_in_catalog(
+            inventory_page,
+            product
+        )
+
+        HybridValidator.assert_product_price(
+            inventory_page,
+            product
+        )
+
+        inventory_page.add_product_to_cart(
+            product["name"]
+        )
+
+        HybridValidator.assert_cart_badge(
+            inventory_page,
+            expected_count=1
+        )
+
+        return inventory_page

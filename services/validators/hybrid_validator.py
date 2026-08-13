@@ -117,3 +117,44 @@ class HybridValidator:
             tax,
             total
         )
+
+    @staticmethod
+    def assert_inventory_loaded(inventory_page):
+        assert inventory_page.is_loaded(), (
+            "Inventory page was not loaded."
+        )
+
+
+    @staticmethod
+    def assert_product_in_catalog(inventory_page, product):
+        product_names = inventory_page.get_all_product_names()
+
+        assert product["name"] in product_names, (
+            f"Product '{product['name']}' was not found in the catalog."
+        )
+
+
+    @staticmethod
+    def assert_product_price(inventory_page, product):
+        actual_price = inventory_page.get_product_price(
+            product["name"]
+        )
+
+        actual_price = float(
+            actual_price.replace("$", "")
+        )
+
+        assert actual_price == product["price"], (
+            f"Expected price {product['price']}, "
+            f"but got {actual_price}."
+        )
+
+
+    @staticmethod
+    def assert_cart_badge(inventory_page, expected_count):
+        actual_count = inventory_page.get_cart_badge_count()
+
+        assert actual_count == expected_count, (
+            f"Expected cart badge to be {expected_count}, "
+            f"but got {actual_count}."
+        )
