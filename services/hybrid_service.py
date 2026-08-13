@@ -82,6 +82,8 @@ class HybridService:
             product
         )
 
+        return True
+
     def complete_checkout(
         self,
         checkout_information_page,
