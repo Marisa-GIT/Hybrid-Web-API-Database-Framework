@@ -17,10 +17,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: DB_ROOT_PASSWORD
-          MYSQL_DATABASE: DB_NAME
-          MYSQL_USER: DB_USER
-          MYSQL_PASSWORD: DB_PASSWORD
+          MYSQL_ROOT_PASSWORD: root_password_ci
+          MYSQL_DATABASE: hybrid_framework_db
+          MYSQL_USER: qa_user
+          MYSQL_PASSWORD: qa_password_ci
         ports:
           - 3306:3306
         options: >-
@@ -55,16 +55,19 @@ jobs:
 
       - name: Initialize Database and Tables
         env:
-          MYSQL_PWD: api_validator_2026
+          API_BASE_URL: https://jsonplaceholder.typicode.com
+          MYSQL_PWD: root_password_ci
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u root -pDB_ROOT_PASSWORD < database/scripts/001_create_database.sql
-          mysql -h 127.0.0.1 -P 3306 -u DB_USER -pDB_PASSWORD DB_NAME < database/scripts/002_create_tables.sql
-          mysql -h 127.0.0.1 -P 3306 -u DB_USER -pDB_PASSWORD DB_NAME < database/scripts/003_seed_data.sql
+          mysql -h 127.0.0.1 -P 3306 -u root -proot_password_ci < database/scripts/001_create_database.sql
+          mysql -h 127.0.0.1 -P 3306 -u qa_user -pqa_password_ci hybrid_framework_db < database/scripts/002_create_tables.sql
+          mysql -h 127.0.0.1 -P 3306 -u qa_user -pqa_password_ci hybrid_framework_db < database/scripts/003_seed_data.sql
 
       - name: Run tests
         env:
           CI: true
           BROWSER: edge
+          BASE_URL: https://www.saucedemo.com
+          API_BASE_URL: https://jsonplaceholder.typicode.com
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: DB_USER
