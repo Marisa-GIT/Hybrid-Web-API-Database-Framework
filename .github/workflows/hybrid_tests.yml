@@ -70,9 +70,9 @@ jobs:
           API_BASE_URL: https://jsonplaceholder.typicode.com
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_USER: DB_USER
-          DB_PASSWORD: DB_PASSWORD
-          DB_NAME: DB_NAME
+          DB_USER: qa_user
+          DB_PASSWORD: qa_password_ci
+          DB_NAME: hybrid_framework_db
         run: |
           pytest --reruns 2 --alluredir=allure-results
 
