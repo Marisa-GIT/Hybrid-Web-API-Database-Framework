@@ -43,30 +43,36 @@ Instead of testing each layer independently, the framework allows UI workflows t
                            ▼
                     Test Results
 
+```
+
 The architecture separates:
 
-Tests → Define business scenarios.
-HybridService → Orchestrates workflows across different layers.
-Page Objects → Encapsulate UI interactions.
-API clients → Handle REST API communication.
-Repositories → Handle database access.
-HybridValidator → Centralizes validation logic.
-TestDataManager → Provides reusable test data.
+- Tests → Define business scenarios.
+- HybridService → Orchestrates workflows across different layers.
+- Page Objects → Encapsulate UI interactions.
+- API clients → Handle REST API communication.
+- Repositories → Handle database access.
+- HybridValidator → Centralizes validation logic.
+- TestDataManager → Provides reusable test data.
 
-🛠️ Technologies
 
-Python
-Selenium WebDriver
-Pytest
-Requests
-MySQL
-Page Object Model (POM)
-JSON
-Git & GitHub
-Logging
+## 🛠️ Technologies
 
-📁 Project Structure
+- Python
+- Selenium WebDriver
+- Pytest
+- Requests
+- MySQL
+- Page Object Model (POM)
+- JSON
+- Git & GitHub
+- Logging
 
+---
+
+## 📁 Project Structure
+
+```
 Hybrid-Web-API-Database-Framework/
 |
 ├───api
@@ -170,41 +176,46 @@ Hybrid-Web-API-Database-Framework/
 ├── .gitignore
 └── README.md
 
-🧪 Testing Strategy
+```
+## 🧪 Testing Strategy
 
 The framework is divided into four main testing layers.
 
 1. API Testing
 
-Validates REST API functionality including:
+   Validates REST API functionality including:
 
-Retrieve all users
-Retrieve user by ID
-User not found scenarios
-HTTP response validation
+    - Retrieve all users
+    - Retrieve user by ID
+    - User not found scenarios
+    - HTTP response validation
+
 2. Database Testing
 
-Validates database operations including:
+   Validates database operations including:
 
-Retrieve users
-Retrieve user by ID
-User existence
-User not found scenarios
+    - Retrieve users
+    - Retrieve user by ID
+    - User existence
+    - User not found scenarios
+
 3. UI Testing
 
-Automates the main e-commerce workflows:
+   Automates the main e-commerce workflows:
 
-Login
-Inventory
-Shopping cart
-Checkout
-End-to-end purchase
+    - Login
+    - Inventory
+    - Shopping cart
+    - Checkout
+    - End-to-end purchase
+
 4. Hybrid Testing
 
-Combines multiple layers into a single workflow.
+   Combines multiple layers into a single workflow.
 
-🔄 Hybrid User Flow
+## 🔄 Hybrid User Flow
 
+```
 Login
   ↓
 Retrieve user from API
@@ -215,8 +226,10 @@ Validate user identity
 
 The framework verifies that the expected user is correctly retrieved from both API and Database layers.
 
-🛒 Hybrid Inventory Flow
+```
+## 🛒 Hybrid Inventory Flow
 
+```
 Login
   ↓
 Open Inventory
@@ -229,8 +242,11 @@ Add product to cart
   ↓
 Validate cart badge
 
-🛍️ Hybrid Cart Flow
+```
 
+## 🛍️ Hybrid Cart Flow
+
+```
 Login
   ↓
 Inventory
@@ -243,8 +259,11 @@ Validate product
   ↓
 Validate product details
 
-💳 Hybrid Checkout Flow
+```
 
+## 💳 Hybrid Checkout Flow
+
+```
 Login
   ↓
 Inventory
@@ -263,23 +282,28 @@ Validate products and totals
   ↓
 Complete purchase
 
-📊 Checkout Validation
+```
+
+## 📊 Checkout Validation
 
 The framework validates:
 
-Product names
-Product prices
-Subtotal
-Tax
-Final total
-Purchase completion message
+- Product names
+- Product prices
+- Subtotal
+- Tax
+- Final total
+- Purchase completion message
 
 The subtotal is validated against the sum of the products, while the final total is validated against subtotal + tax.
 
-📦 Test Data Management
+---
+
+## 📦 Test Data Management
 
 Test data is separated from the test logic using JSON files.
 
+```
 Example:
 
 {
@@ -289,29 +313,37 @@ Example:
     }
 }
 
+```
+
 Tests retrieve the data through TestDataManager instead of hardcoding credentials and product information directly inside test cases.
 
 This improves:
 
-Maintainability
-Reusability
-Readability
-Data-driven testing
-🧩 Design Patterns
-Page Object Model
+- Maintainability
+- Reusability
+- Readability
+- Data-driven testing
+
+---
+
+
+
+## 🧩 Design Patterns
+```
+### Page Object Model
 
 Each application page is represented by a dedicated class.
 
-LoginPage
-InventoryPage
-CartPage
-CheckoutInformationPage
-CheckoutOverviewPage
-CheckoutCompletePage
+- LoginPage
+- InventoryPage
+- CartPage
+- CheckoutInformationPage
+- CheckoutOverviewPage
+- CheckoutCompletePage
 
 This separates UI interactions from test logic.
 
-Service Layer
+### Service Layer
 
 HybridService orchestrates complete business workflows.
 
@@ -327,11 +359,15 @@ Login
 → Checkout
 → Purchase
 
-Validator Layer
+
+### Validator Layer
 
 HybridValidator centralizes reusable validation logic instead of duplicating assertions throughout the tests.
 
-🧪 Test Execution
+```
+---
+
+## 🧪 Test Execution
 
 Run the complete test suite:
 
@@ -354,47 +390,54 @@ The complete test suite currently contains:
 
 Coverage includes:
 
-API tests
-Database tests
-UI tests
-Hybrid workflows
-End-to-end scenarios
+- API tests
+- Database tests
+- UI tests
+- Hybrid workflows
+- End-to-end scenarios
 
-📚 Key Learning Outcomes
+---
+
+## 📚 Key Learning Outcomes
 
 Through this project I practiced:
 
-Designing a multi-layer QA automation framework
-Applying Page Object Model
-Creating reusable service layers
-Separating validation logic from workflow logic
-API automation with Python
-Database validation with MySQL
-UI automation with Selenium
-Data-driven testing with JSON
-Pytest fixtures
-Automated screenshots on test failures
-Logging
-Git workflow and feature branches
-End-to-end business workflow automation
+- Designing a multi-layer QA automation framework
+- Applying Page Object Model
+- Creating reusable service layers
+- Separating validation logic from workflow logic
+- API automation with Python
+- Database validation with MySQL
+- UI automation with Selenium
+- Data-driven testing with JSON
+- Pytest fixtures
+- Automated screenshots on test failures
+- Logging
+- Git workflow and feature branches
+- End-to-end business workflow automation
 
-🚀 Future Improvements
+---
+
+## 🚀 Future Improvements
 
 The current version focuses on functionality and framework integration.
 
 Future refactoring and improvements may include:
 
-Further separation of service responsibilities
-Improved type hints
-Advanced test reporting
-CI/CD with GitHub Actions
-Parallel test execution
-Environment-based configuration
-Improved logging
-Docker integration
-Code quality and static analysis
-Additional API/UI/Database validations
-👩‍💻 Author
+- Further separation of service responsibilities
+- Improved type hints
+- Advanced test reporting
+- CI/CD with GitHub Actions
+- Parallel test execution
+- Environment-based configuration
+- Improved logging
+- Docker integration
+- Code quality and static analysis
+- Additional API/UI/Database validations
+
+---
+
+## 👩‍💻 Author
 
 Isabel Vides
 
