@@ -70,6 +70,7 @@ The architecture separates:
 
 ## 📁 Project Structure
 
+```
 Hybrid-Web-API-Database-Framework/
 |
 ├───api
@@ -173,6 +174,7 @@ Hybrid-Web-API-Database-Framework/
 ├── .gitignore
 └── README.md
 
+```
 ## 🧪 Testing Strategy
 
 The framework is divided into four main testing layers.
@@ -210,7 +212,7 @@ Automates the main e-commerce workflows:
 Combines multiple layers into a single workflow.
 
 ## 🔄 Hybrid User Flow
-
+```
 Login
   ↓
 Retrieve user from API
@@ -221,8 +223,9 @@ Validate user identity
 
 The framework verifies that the expected user is correctly retrieved from both API and Database layers.
 
+```
 ## 🛒 Hybrid Inventory Flow
-
+```
 Login
   ↓
 Open Inventory
@@ -235,8 +238,11 @@ Add product to cart
   ↓
 Validate cart badge
 
+```
+
 ## 🛍️ Hybrid Cart Flow
 
+```
 Login
   ↓
 Inventory
@@ -249,7 +255,11 @@ Validate product
   ↓
 Validate product details
 
+```
+
 ## 💳 Hybrid Checkout Flow
+
+```
 
 Login
   ↓
@@ -268,6 +278,8 @@ Checkout Overview
 Validate products and totals
   ↓
 Complete purchase
+
+```
 
 ## 📊 Checkout Validation
 
@@ -288,6 +300,7 @@ The subtotal is validated against the sum of the products, while the final total
 
 Test data is separated from the test logic using JSON files.
 
+```
 Example:
 
 {
@@ -296,6 +309,8 @@ Example:
         "price": 29.99
     }
 }
+
+```
 
 Tests retrieve the data through TestDataManager instead of hardcoding credentials and product information directly inside test cases.
 
@@ -333,11 +348,14 @@ purchase_product()
 
 coordinates:
 
+```
 Login
 → Inventory
 → Cart
 → Checkout
 → Purchase
+
+```
 
 ### Validator Layer
 
