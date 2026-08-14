@@ -43,6 +43,8 @@ Instead of testing each layer independently, the framework allows UI workflows t
                            ▼
                     Test Results
 
+```
+
 The architecture separates:
 
 - Tests → Define business scenarios.
@@ -53,7 +55,7 @@ The architecture separates:
 - HybridValidator → Centralizes validation logic.
 - TestDataManager → Provides reusable test data.
 
-```
+
 ## 🛠️ Technologies
 
 - Python
@@ -181,37 +183,38 @@ The framework is divided into four main testing layers.
 
 1. API Testing
 
-Validates REST API functionality including:
+   Validates REST API functionality including:
 
-- Retrieve all users
-- Retrieve user by ID
-- User not found scenarios
-- HTTP response validation
+    - Retrieve all users
+    - Retrieve user by ID
+    - User not found scenarios
+    - HTTP response validation
 
 2. Database Testing
 
-Validates database operations including:
+   Validates database operations including:
 
-- Retrieve users
-- Retrieve user by ID
-- User existence
-- User not found scenarios
+    - Retrieve users
+    - Retrieve user by ID
+    - User existence
+    - User not found scenarios
 
 3. UI Testing
 
-Automates the main e-commerce workflows:
+   Automates the main e-commerce workflows:
 
-- Login
-- Inventory
-- Shopping cart
-- Checkout
-- End-to-end purchase
+    - Login
+    - Inventory
+    - Shopping cart
+    - Checkout
+    - End-to-end purchase
 
 4. Hybrid Testing
 
-Combines multiple layers into a single workflow.
+   Combines multiple layers into a single workflow.
 
 ## 🔄 Hybrid User Flow
+
 ```
 Login
   ↓
@@ -225,6 +228,7 @@ The framework verifies that the expected user is correctly retrieved from both A
 
 ```
 ## 🛒 Hybrid Inventory Flow
+
 ```
 Login
   ↓
@@ -260,7 +264,6 @@ Validate product details
 ## 💳 Hybrid Checkout Flow
 
 ```
-
 Login
   ↓
 Inventory
@@ -323,8 +326,10 @@ This improves:
 
 ---
 
-## 🧩 Design Patterns
 
+
+## 🧩 Design Patterns
+```
 ### Page Object Model
 
 Each application page is represented by a dedicated class.
@@ -348,19 +353,18 @@ purchase_product()
 
 coordinates:
 
-```
 Login
 → Inventory
 → Cart
 → Checkout
 → Purchase
 
-```
 
 ### Validator Layer
 
 HybridValidator centralizes reusable validation logic instead of duplicating assertions throughout the tests.
 
+```
 ---
 
 ## 🧪 Test Execution
