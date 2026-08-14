@@ -173,8 +173,6 @@ Hybrid-Web-API-Database-Framework/
 ├── .gitignore
 └── README.md
 
----
-
 ## 🧪 Testing Strategy
 
 The framework is divided into four main testing layers.
@@ -211,8 +209,6 @@ Automates the main e-commerce workflows:
 
 Combines multiple layers into a single workflow.
 
----
-
 ## 🔄 Hybrid User Flow
 
 Login
@@ -224,8 +220,6 @@ Retrieve user from Database
 Validate user identity
 
 The framework verifies that the expected user is correctly retrieved from both API and Database layers.
-
----
 
 ## 🛒 Hybrid Inventory Flow
 
@@ -241,8 +235,6 @@ Add product to cart
   ↓
 Validate cart badge
 
----
-
 ## 🛍️ Hybrid Cart Flow
 
 Login
@@ -256,8 +248,6 @@ Open Cart
 Validate product
   ↓
 Validate product details
-
----
 
 ## 💳 Hybrid Checkout Flow
 
@@ -278,8 +268,6 @@ Checkout Overview
 Validate products and totals
   ↓
 Complete purchase
-
----
 
 ## 📊 Checkout Validation
 
