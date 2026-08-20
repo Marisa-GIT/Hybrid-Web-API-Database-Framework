@@ -1,5 +1,9 @@
 # 🚀 Hybrid Web + API + Database QA Automation Framework
 
+[![CI](https://github.com/Marisa-GIT/Hybrid-Web-API-Database-Framework/actions/workflows/hybrid_tests.yml/badge.svg)](
+https://github.com/Marisa-GIT/Hybrid-Web-API-Database-Framework/actions/workflows/hybrid_tests.yml
+)
+
 A professional QA automation framework that integrates **Web UI automation, REST API testing, and Database validation** into a single hybrid testing architecture.
 
 This project was developed as part of my QA Automation portfolio to demonstrate how different testing layers can be integrated into reusable, maintainable, and scalable automated workflows.
